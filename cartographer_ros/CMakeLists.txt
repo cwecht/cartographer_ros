@@ -35,19 +35,14 @@ set(PACKAGE_DEPENDENCIES
   visualization_msgs
 )
 
+find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
+enable_testing()
+
 find_package(cartographer REQUIRED)
 include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
 set(BUILD_SHARED_LIBS OFF)
 option(BUILD_GRPC "build features that require Cartographer gRPC support" false)
 google_initialize_cartographer_project()
-
-find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
-
-google_enable_testing()
-# Override Catkin's GTest configuration to use GMock.
-set(GTEST_FOUND TRUE)
-set(GTEST_INCLUDE_DIRS ${GMOCK_INCLUDE_DIRS})
-set(GTEST_LIBRARIES ${GMOCK_LIBRARIES})
 
 include(FindPkgConfig)
 
